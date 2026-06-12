@@ -29,4 +29,21 @@ public class SkillController {
         skillService.saveSkill(skill);
         return "redirect:/add-skill";
     }
+
+    @GetMapping("/skills")
+    public String viewSkills(Model model){
+
+        model.addAttribute("skills",skillService.getAllSkills());
+
+        return "skills";
+    }
+
+    @GetMapping("/skills-with-users")
+    public String viewSkillsWithUsers(Model model) {
+
+        model.addAttribute("skills",
+                skillService.getAllSkills());
+
+        return "skills-with-users";
+    }
 }

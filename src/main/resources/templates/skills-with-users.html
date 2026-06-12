@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skills With Users</title>
+</head>
+<body>
+
+<h1>Student Skills Dashboard</h1>
+
+<table border="1">
+
+    <tr>
+        <th>User Name</th>
+        <th>Skill</th>
+        <th>Type</th>
+    </tr>
+
+    <tr th:each="skill : ${skills}">
+        <td th:text="${skill.user != null ? skill.user.name : 'No User'}"></td>
+        <td th:text="${skill.skillName}"></td>
+        <td th:text="${skill.skillType}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>
