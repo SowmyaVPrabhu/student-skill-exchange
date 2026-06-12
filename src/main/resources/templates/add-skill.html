@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Skill</title>
+</head>
+<body>
+
+<h1>Add Skill</h1>
+
+<form action="/save-skill" method="post">
+
+    <label>Skill Name:</label>
+    <input type="text" name="skillName" required>
+    <br><br>
+
+    <label>Skill Type:</label>
+
+    <select name="skillType">
+        <option value="TEACH">TEACH</option>
+        <option value="LEARN">LEARN</option>
+    </select>
+
+    <br><br>
+
+    <button type="submit">Add Skill</button>
+
+</form>
+
+</body>
+</html>
