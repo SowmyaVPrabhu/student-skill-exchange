@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Skill</title>
+</head>
+<body>
+
+<h1>Edit Skill</h1>
+
+<form action="/update-skill" method="post">
+
+    <input type="hidden"
+           name="id"
+           th:value="${skill.id}">
+
+    <label>Skill Name:</label>
+    <input type="text"
+           name="skillName"
+           th:value="${skill.skillName}">
+
+    <br><br>
+
+    <label>Skill Type:</label>
+
+    <select name="skillType">
+
+        <option value="TEACH">
+            TEACH
+        </option>
+
+        <option value="LEARN">
+            LEARN
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Update
+    </button>
+
+</form>
+
+</body>
+</html>

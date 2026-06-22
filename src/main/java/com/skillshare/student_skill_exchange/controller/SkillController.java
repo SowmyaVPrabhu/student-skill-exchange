@@ -2,19 +2,29 @@ package com.skillshare.student_skill_exchange.controller;
 
 
 import com.skillshare.student_skill_exchange.entity.Skill;
+import com.skillshare.student_skill_exchange.entity.User;
 import com.skillshare.student_skill_exchange.service.SkillService;
+import com.skillshare.student_skill_exchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class SkillController {
 
     @Autowired
     private SkillService skillService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/add-skill")
     public String showSkillPage(Model model){
@@ -23,12 +33,6 @@ public class SkillController {
         return "add-skill";
     }
 
-    @PostMapping("/save-skill")
-    public String saveSkill(@ModelAttribute Skill skill){
-
-        skillService.saveSkill(skill);
-        return "redirect:/add-skill";
-    }
 
     @GetMapping("/skills")
     public String viewSkills(Model model){
@@ -46,4 +50,76 @@ public class SkillController {
 
         return "skills-with-users";
     }
+
+    @GetMapping("/matches")
+    public String viewMatches(Model model){
+        model.addAttribute("matches",skillService.findMatches());
+        return "matches";
+    }
+
+    @GetMapping("/my-skills")
+    public String mySkills(Model model) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+        System.out.println("Current email = " + email);
+
+        User user = userService.findByEmail(email);
+        System.out.println("User ID = " + user.getId());
+
+        List<Skill> skills = skillService.getSkillsByUser(user);
+
+        System.out.println("Skills found = " + skills.size());
+
+        model.addAttribute("skills", skills);
+
+        return "my-skills";
+    }
+
+    @PostMapping("/save-skill")
+    public String addSkill(@ModelAttribute Skill skill) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userService.findByEmail(email);
+
+        skill.setUser(user);
+
+        System.out.println("Saving skill for user ID = " + user.getId());
+
+        skillService.saveSkill(skill);
+
+        return "redirect:/my-skills";
+    }
+
+    @GetMapping("/edit-skill/{id}")
+    public String showEditSkillPage(@PathVariable Long id,
+                                    Model model) {
+
+        Skill skill = skillService.getSkillById(id);
+
+        model.addAttribute("skill", skill);
+
+        return "edit-skill";
+    }
+
+    @PostMapping("/update-skill")
+    public String updateSkill(@ModelAttribute Skill skill) {
+
+        Skill existingSkill = skillService.getSkillById(skill.getId());
+
+        // Preserve the owner of the skill
+        skill.setUser(existingSkill.getUser());
+
+        skillService.saveSkill(skill);
+
+        return "redirect:/my-skills";
+    }
+
+
 }

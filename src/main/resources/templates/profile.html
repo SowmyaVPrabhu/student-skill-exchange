@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+
+<h1>My Profile</h1>
+
+<p><b>Name:</b> <span th:text="${user.name}"></span></p>
+
+<p><b>Email:</b> <span th:text="${user.email}"></span></p>
+
+<p><b>College:</b> <span th:text="${user.college}"></span></p>
+
+<p><b>Bio:</b> <span th:text="${user.bio}"></span></p>
+
+<a href="/dashboard">Dashboard</a>
+
+</body>
+</html>

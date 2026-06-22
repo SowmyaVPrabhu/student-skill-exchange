@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skill Matches</title>
+</head>
+<body>
+
+<h1>Skill Matches</h1>
+
+<table border="1">
+
+    <tr>
+        <th>Skill</th>
+        <th>Teacher</th>
+        <th>Learner</th>
+    </tr>
+
+    <tr th:each="match : ${matches}">
+        <td th:text="${match.skillName}"></td>
+        <td th:text="${match.teacherName}"></td>
+        <td th:text="${match.learnerName}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>
