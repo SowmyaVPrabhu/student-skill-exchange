@@ -79,5 +79,9 @@ public class SkillService {
                 .findBySkillNameContainingIgnoreCase(skillName);
     }
 
+    public long getSkillCount() {
+        return skillRepository.count();
+    }
+
 
 }

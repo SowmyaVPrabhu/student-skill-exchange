@@ -41,4 +41,12 @@ public class UserService {
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
     }
+
+    public long getUserCount() {
+        return userRepository.count();
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 }

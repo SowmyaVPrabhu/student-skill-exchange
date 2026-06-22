@@ -1,5 +1,6 @@
 package com.skillshare.student_skill_exchange.service;
 
+import com.skillshare.student_skill_exchange.entity.RequestStatus;
 import com.skillshare.student_skill_exchange.entity.SkillRequest;
 import com.skillshare.student_skill_exchange.entity.User;
 import com.skillshare.student_skill_exchange.repository.SkillRequestRepository;
@@ -24,6 +25,20 @@ public class SkillRequestService {
 
     public SkillRequest getRequestById(Long id) {
         return skillRequestRepository.findById(id).orElse(null);
+    }
+
+    public long getPendingRequestCount() {
+        return skillRequestRepository.countByStatus(RequestStatus.PENDING);
+    }
+
+    public long getAcceptedRequestCount() {
+        return skillRequestRepository.countByStatus(RequestStatus.ACCEPTED);
+    }
+
+
+
+    public List<SkillRequest> getRequestsBySender(User sender) {
+        return skillRequestRepository.findBySender(sender);
     }
 
 

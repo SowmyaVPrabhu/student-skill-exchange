@@ -216,5 +216,55 @@ public class SkillController {
         return "redirect:/requests";
     }
 
+    @GetMapping("/edit-profile")
+    public String editProfile(Model model) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userService.findByEmail(email);
+
+        model.addAttribute("user", user);
+
+        return "edit-profile";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfile(@ModelAttribute User user) {
+
+        User existingUser =
+                userService.findByEmail(
+                        SecurityContextHolder.getContext()
+                                .getAuthentication()
+                                .getName());
+
+        user.setEmail(existingUser.getEmail());
+
+        user.setPassword(existingUser.getPassword());
+
+        userService.saveUser(user);
+
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/sent-requests")
+    public String sentRequests(Model model) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User sender = userService.findByEmail(email);
+
+        model.addAttribute(
+                "requests",
+                skillRequestService.getRequestsBySender(sender));
+
+        return "sent-requests";
+    }
+
 
 }

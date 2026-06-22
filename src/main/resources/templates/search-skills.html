@@ -2,52 +2,135 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Search Skills</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f5f7fb;
+        }
+
+        .container-box{
+            margin-top:50px;
+        }
+
+        .card-box{
+            border:none;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search-bar{
+            max-width:500px;
+        }
+
+    </style>
+
 </head>
 <body>
 
-<h1>Search Skills</h1>
+<div class="container container-box">
 
-<form action="/search-skills" method="get">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <label>Enter Skill:</label>
+        <h2 class="fw-bold text-dark">
+            Search Skills
+        </h2>
 
-    <input type="text"
-           name="keyword"
-           placeholder="Java">
+        <a href="/dashboard"
+           class="btn btn-dark">
+            Home
+        </a>
 
-    <button type="submit">
-        Search
-    </button>
+    </div>
 
-</form>
 
-<br><br>
+    <div class="card card-box mb-4">
 
-<table border="1">
+        <div class="card-body">
 
-    <tr>
-        <th>User Name</th>
-        <th>Skill Name</th>
-        <th>Skill Type</th>
-    </tr>
+            <form action="/search-skills"
+                  method="get"
+                  class="d-flex gap-3 search-bar">
 
-    <tr th:each="skill : ${skills}">
+                <input type="text"
+                       class="form-control"
+                       name="keyword"
+                       placeholder="Search skill (Java, Spring Boot...)">
 
-        <td th:text="${skill.user.name}"></td>
+                <button type="submit"
+                        class="btn btn-primary">
+                    Search
+                </button>
 
-        <td th:text="${skill.skillName}"></td>
+            </form>
 
-        <td th:text="${skill.skillType}"></td>
+        </div>
 
-        <td>
-            <a th:href="@{/send-request/{id}(id=${skill.id})}">
-                Request Help
-            </a>
-        </td>
+    </div>
 
-    </tr>
 
-</table>
+    <div class="card card-box">
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                <tr>
+                    <th>User Name</th>
+                    <th>Skill Name</th>
+                    <th>Skill Type</th>
+                    <th>Action</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="skill : ${skills}">
+
+                    <td th:text="${skill.user.name}"></td>
+
+                    <td th:text="${skill.skillName}"></td>
+
+                    <td>
+
+                        <span class="badge bg-success"
+                              th:if="${skill.skillType == 'TEACH'}"
+                              th:text="${skill.skillType}">
+                        </span>
+
+                        <span class="badge bg-warning text-dark"
+                              th:if="${skill.skillType == 'LEARN'}"
+                              th:text="${skill.skillType}">
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <a th:href="@{/send-request/{id}(id=${skill.id})}"
+                           class="btn btn-primary btn-sm">
+                            Request Help
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>

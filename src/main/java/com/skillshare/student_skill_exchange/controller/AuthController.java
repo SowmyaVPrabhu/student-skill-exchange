@@ -2,6 +2,8 @@ package com.skillshare.student_skill_exchange.controller;
 
 
 import com.skillshare.student_skill_exchange.entity.User;
+import com.skillshare.student_skill_exchange.service.SkillRequestService;
+import com.skillshare.student_skill_exchange.service.SkillService;
 import com.skillshare.student_skill_exchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,12 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SkillService skillService;
+
+    @Autowired
+    private SkillRequestService skillRequestService;
+
 
     @GetMapping("/signup")
     public String showSignipPage(){
@@ -27,6 +35,29 @@ public class AuthController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        User user =
+                userService.findByEmail(authentication.getName());
+
+        model.addAttribute("loggedInUser", user);
+
+
+        model.addAttribute("totalUsers",
+                userService.getUserCount());
+
+
+        model.addAttribute("totalSkills",
+                skillService.getSkillCount());
+
+
+        model.addAttribute("pendingRequests",
+                skillRequestService.getPendingRequestCount());
+
+        model.addAttribute("acceptedRequests",
+                skillRequestService.getAcceptedRequestCount());
 
         model.addAttribute("users",
                 userService.getAllUsers());
