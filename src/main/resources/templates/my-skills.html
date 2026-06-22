@@ -11,6 +11,13 @@
 
 <br><br>
 
+<br><br>
+
+<a href="/search-skills">
+    Search Skills
+</a>
+
+
 <table border="1">
 
     <tr>
@@ -28,6 +35,12 @@
         <td>
             <a th:href="@{/edit-skill/{id}(id=${skill.id})}">
                 Edit
+            </a>
+
+            |
+
+            <a th:href="@{/delete-skill/{id}(id=${skill.id})}">
+                Delete
             </a>
         </td>
 

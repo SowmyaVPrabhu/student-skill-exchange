@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Skills</title>
+</head>
+<body>
+
+<h1>Search Skills</h1>
+
+<form action="/search-skills" method="get">
+
+    <label>Enter Skill:</label>
+
+    <input type="text"
+           name="keyword"
+           placeholder="Java">
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<br><br>
+
+<table border="1">
+
+    <tr>
+        <th>User Name</th>
+        <th>Skill Name</th>
+        <th>Skill Type</th>
+    </tr>
+
+    <tr th:each="skill : ${skills}">
+
+        <td th:text="${skill.user.name}"></td>
+
+        <td th:text="${skill.skillName}"></td>
+
+        <td th:text="${skill.skillType}"></td>
+
+        <td>
+            <a th:href="@{/send-request/{id}(id=${skill.id})}">
+                Request Help
+            </a>
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Incoming Requests</title>
+</head>
+<body>
+
+<h1>Incoming Requests</h1>
+
+<table border="1">
+
+    <tr>
+        <th>Sender</th>
+        <th>Skill</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="request : ${requests}">
+
+        <td th:text="${request.sender.name}"></td>
+
+        <td th:text="${request.skill.skillName}"></td>
+
+        <td th:text="${request.status}"></td>
+
+        <td>
+
+            <a th:href="@{/accept-request/{id}(id=${request.id})}">
+                Accept
+            </a>
+
+            |
+
+            <a th:href="@{/reject-request/{id}(id=${request.id})}">
+                Reject
+            </a>
+
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -69,5 +69,15 @@ public class SkillService {
         return skillRepository.findById(id).orElse(null);
     }
 
+    public void deleteSkill(Long id) {
+        skillRepository.deleteById(id);
+    }
+
+    public List<Skill> searchSkills(String skillName) {
+
+        return skillRepository
+                .findBySkillNameContainingIgnoreCase(skillName);
+    }
+
 
 }
