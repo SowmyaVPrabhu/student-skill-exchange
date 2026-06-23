@@ -63,6 +63,11 @@ public class AuthController {
         return "dashboard";
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/login")
     public String loginPage(){
         return "login";
