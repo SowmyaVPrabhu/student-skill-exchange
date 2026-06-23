@@ -95,7 +95,7 @@
                 </i>
 
                 <h6 class="mt-2"
-                    th:text="${#authentication.name}">
+                    th:text="${loggedInUser.name}">
                 </h6>
 
             </div>
@@ -162,10 +162,10 @@
 
                         <div class="card-body">
 
-                            <h5>Total Users</h5>
+                            <h5>My Skills</h5>
 
                             <h2 class="text-primary"
-                                th:text="${totalUsers}">
+                                th:text="${mySkills}">
                             </h2>
 
                         </div>
@@ -181,10 +181,9 @@
 
                         <div class="card-body">
 
-                            <h5>Total Skills</h5>
-
+                            <h5>My Requests</h5>
                             <h2 class="text-success"
-                                th:text="${totalSkills}">
+                                th:text="${myRequests}">
                             </h2>
 
                         </div>
@@ -201,7 +200,6 @@
                         <div class="card-body">
 
                             <h5>Pending Requests</h5>
-
                             <h2 class="text-warning"
                                 th:text="${pendingRequests}">
                             </h2>
@@ -250,10 +248,10 @@
 
                     <p class="text-secondary">
 
-                        Welcome to the Student Skill Exchange Platform.
+                        Welcome to PeerLearn.
 
-                        Share your knowledge, learn new skills,
-                        and connect with fellow students.
+                        Share your knowledge, discover new skills,
+                        and grow together with fellow learners.
 
                     </p>
 

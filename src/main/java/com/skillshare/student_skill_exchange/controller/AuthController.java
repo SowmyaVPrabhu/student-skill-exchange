@@ -44,23 +44,21 @@ public class AuthController {
 
         model.addAttribute("loggedInUser", user);
 
+        model.addAttribute(
+                "mySkills",
+                skillService.getSkillsByUser(user).size());
 
-        model.addAttribute("totalUsers",
-                userService.getUserCount());
+        model.addAttribute(
+                "myRequests",
+                skillRequestService.getRequestsBySender(user).size());
 
-
-        model.addAttribute("totalSkills",
-                skillService.getSkillCount());
-
-
-        model.addAttribute("pendingRequests",
+        model.addAttribute(
+                "pendingRequests",
                 skillRequestService.getPendingRequestCount());
 
-        model.addAttribute("acceptedRequests",
+        model.addAttribute(
+                "acceptedRequests",
                 skillRequestService.getAcceptedRequestCount());
-
-        model.addAttribute("users",
-                userService.getAllUsers());
 
         return "dashboard";
     }
