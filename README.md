@@ -63,6 +63,10 @@ src
 
 ---
 
+## Live Demo 
+
+https://student-skill-exchange-production.up.railway.app/
+
 ## Application Preview
 
 <img width="1900" height="857" alt="image" src="https://github.com/user-attachments/assets/9482562e-83ce-4736-a056-4aaa90f5a4d7" />
